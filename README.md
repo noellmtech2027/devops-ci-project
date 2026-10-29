@@ -34,7 +34,11 @@ This project demonstrates a basic Continuous Integration (CI) pipeline using Git
 
 
 
-The Python application contains simple functions with automated tests. Whenever code is pushed to the GitHub repository, GitHub Actions automatically installs the required dependencies and runs the tests.
+The project contains a simple Python application with automated tests. Whenever code is pushed to the GitHub repository, GitHub Actions automatically sets up the Python environment, installs the required dependencies, and runs the tests.
+
+
+
+The CI pipeline was also tested by intentionally introducing a failing test. GitHub Actions detected the failure, and after the test was corrected, the pipeline successfully passed again.
 
 
 
@@ -63,6 +67,26 @@ devops-ci-project/
 &#x20;       └── ci.yml
 
 ```
+
+
+
+\## Application
+
+
+
+The Python application contains simple functions for:
+
+
+
+\* Adding two numbers
+
+\* Greeting a user
+
+\* Multiplying two numbers
+
+
+
+Automated tests are written using Pytest to verify these functions.
 
 
 
@@ -134,19 +158,51 @@ python -m pytest
 
 
 
-The GitHub Actions workflow:
+The GitHub Actions workflow is defined in:
 
 
 
-\* Runs whenever code is pushed to the `master` branch.
+```text
 
-\* Runs for pull requests targeting the `master` branch.
+.github/workflows/ci.yml
 
-\* Sets up Python 3.10.
+```
 
-\* Installs project dependencies.
 
-\* Executes the automated tests using Pytest.
+
+The workflow:
+
+
+
+1\. Is triggered when code is pushed to the `master` branch.
+
+2\. Checks out the repository code.
+
+3\. Sets up Python 3.10.
+
+4\. Installs the dependencies from `requirements.txt`.
+
+5\. Runs the automated tests using Pytest.
+
+
+
+\## CI Failure Demonstration
+
+
+
+To demonstrate how CI detects problems, a test was intentionally changed to an incorrect expected value.
+
+
+
+The pipeline detected the failing test and the GitHub Actions workflow showed a failed run.
+
+
+
+The test was then corrected and pushed again. GitHub Actions automatically ran the tests again and the pipeline successfully passed.
+
+
+
+This demonstrates how CI can automatically detect problems in code changes.
 
 
 
